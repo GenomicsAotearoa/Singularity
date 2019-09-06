@@ -1,0 +1,33 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%help
+    Containerisation of MetaBAT v2.13-30
+    David Waite - 2019/08/21
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%environment
+    PATH=/opt/bin:$PATH
+
+%post
+    apt-get -y update
+    apt-get -y install python \
+                       build-essential \
+                       autoconf \
+                       libncurses5-dev \
+                       zlib1g-dev \
+                       libboost-all-dev \
+                       git cmake curl 
+
+    # Install
+    cd /opt/
+    git clone https://bitbucket.org/berkeleylab/metabat.git
+    mkdir metabat/build/
+    cd metabat/build/
+    cmake -DCMAKE_INSTALL_PREFIX=/opt/bin ..
+    make
+    make install
+    rm -r /opt/metabat/

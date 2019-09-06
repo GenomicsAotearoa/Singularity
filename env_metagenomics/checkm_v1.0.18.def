@@ -1,0 +1,70 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%help
+    Containerisation of CheckM v1.0.18, including reference database
+    David Waite - 2019/08/20
+    
+    Dependencies were downloaded and compiled (if necessary) on Ubuntu 18.04.2 LTS
+    Pplacer
+        wget https://github.com/matsen/pplacer/releases/download/v1.1.alpha19/pplacer-linux-v1.1.alpha19.zip
+        unzip pplacer-linux-v1.1.alpha19.zip 
+
+    HMMer
+        wget http://eddylab.org/software/hmmer/hmmer.tar.gz
+        tar -czf hmmer.tar.gz
+        cd hmmer/
+        ./configure
+        make
+
+    Prodigal
+        git clone https://github.com/hyattpd/Prodigal.git
+        cd Prodigal/
+        make
+    
+    CheckM database
+        wget https://data.ace.uq.edu.au/public/CheckM_databases/checkm_data_2015_01_16.tar.gz
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%files
+    # pplacer
+    pplacer-linux-v1.1.alpha19/pplacer-Linux-v1.1.alpha19/pplacer /opt/bin/pplacer
+    pplacer-linux-v1.1.alpha19/pplacer-Linux-v1.1.alpha19/guppy /opt/bin/guppy
+    pplacer-linux-v1.1.alpha19/pplacer-Linux-v1.1.alpha19/rppr /opt/bin/rppr
+
+    # hmmer
+    hmmer/hmmer-3.2.1/src/hmmsearch /opt/bin/hmmsearch
+    hmmer/hmmer-3.2.1/src/hmmalign /opt/bin/hmmalign
+    hmmer/hmmer-3.2.1/src/hmmfetch /opt/bin/hmmfetch
+    hmmer/hmmer-3.2.1/src/hmmpress /opt/bin/hmmpress
+
+    # Prodigal
+    Prodigal/prodigal /opt/bin/prodigal
+
+    # CheckM database
+    checkm_data_2015_01_16.tar.gz /opt/db/checkm_data_2015_01_16.tar.gz
+    
+%environment
+    PATH=/opt/bin:$PATH
+
+%post
+    apt-get -y update
+    apt-get -y install python python-pip
+
+    # Dependencies for HTSlib
+    apt-get -y install zlib1g-dev libbz2-dev liblzma-dev
+
+    # Install CheckM
+    pip install numpy pysam checkm-genome==1.0.18
+
+    # Set flags for executable dependecies
+    chmod 777 /opt/bin/*
+
+    # Unpackage and set the database directory
+    cd /opt/db/
+    tar -xzf checkm_data_2015_01_16.tar.gz
+    rm checkm_data_2015_01_16.tar.gz
+    checkm data setRoot /opt/db/
