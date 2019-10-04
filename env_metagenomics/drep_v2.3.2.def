@@ -1,0 +1,15 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%help
+    Containerisation of dRep v2.3.2
+    David Waite - 2019/08/20
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%post
+    apt-get -y update
+    apt-get -y install python3 python3-pip
+    pip3 install drep==2.3.2

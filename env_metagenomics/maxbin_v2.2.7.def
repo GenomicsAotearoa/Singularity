@@ -1,0 +1,47 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%help
+    Containerisation of MaxBin v2.2.7
+    David Waite - 2019/09/02
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%environment
+    PATH=/opt/MaxBin-2.2.7:$PATH
+
+%post
+    apt-get -y update
+    apt-get -y install build-essential autoconf wget g++ perl curl unzip libwww-perl
+
+    # Autoconfigure CPAN, ready to install modules during autobuild_auxiliary
+    echo | cpan
+
+    cd /opt/
+    wget -O MaxBin-2.2.7.tar.gz \
+         https://sourceforge.net/projects/maxbin/files/MaxBin-2.2.7.tar.gz/download
+    tar -xzf MaxBin-2.2.7.tar.gz
+
+    # Install and compile dependencies
+    cd MaxBin-2.2.7/src/
+    make
+    cd ..
+    ./autobuild_auxiliary
+    chmod 777 run_MaxBin.pl
+
+    # Build the setting file with dependency locations
+    echo "[FragGeneScan] /opt/MaxBin-2.2.7/auxiliary/FragGeneScan1.30" > /opt/MaxBin-2.2.7/setting
+    echo "[Bowtie2] /opt/MaxBin-2.2.7/auxiliary/bowtie2-2.2.3" >> /opt/MaxBin-2.2.7/setting
+    echo "[HMMER3] /opt/MaxBin-2.2.7/auxiliary/hmmer-3.1b1/src" >> /opt/MaxBin-2.2.7/setting
+    echo "[IDBA_UD] /opt/MaxBin-2.2.7/auxiliary/idba-1.1.1/bin" >> /opt/MaxBin-2.2.7/setting
+
+    chmod +rx /opt/MaxBin-2.2.7/auxiliary/FragGeneScan1.30/
+
+    # Tidy up
+    rm /opt/MaxBin-2.2.7.tar.gz
+    rm /opt/MaxBin-2.2.7/auxiliary/FragGeneScan1.30.tar.gz
+    rm /opt/MaxBin-2.2.7/auxiliary/bowtie2-2.2.3-source.zip
+    rm /opt/MaxBin-2.2.7/auxiliary/hmmer-3.1b1.tar.gz
+    rm /opt/MaxBin-2.2.7/auxiliary/idba-1.1.1.tar.gz
