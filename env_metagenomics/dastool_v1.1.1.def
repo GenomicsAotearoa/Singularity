@@ -1,0 +1,33 @@
+Bootstrap: docker
+From: continuumio/miniconda3:4.4.10
+
+%help
+    Containerisation of DAS_Tool v1.1.1, installed via conda v4.4.10
+    David Waite - 2019/10/09
+    
+    BLAST executables are not included in the DAS_Tool image, so were obtained via:
+        wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.9.0+-x64-linux.tar.gz
+        tar -xzf ncbi-blast-2.9.0+-x64-linux.tar.gz 
+
+%files
+    ncbi-blast-2.9.0+/bin/makeblastdb /opt/bin/makeblastdb
+    ncbi-blast-2.9.0+/bin/blastn /opt/bin/blastn
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%environment
+    PATH=/opt/bin:$PATH
+    PATH=/opt/conda/bin:$PATH
+    unset CONDA_DEFAULT_ENV
+    export ANACONDA_HOME=/opt/conda
+
+%post
+    export PATH=/opt/conda/bin:$PATH
+    conda config --add channels defaults
+    conda config --add channels bioconda
+    conda config --add channels conda-forge
+    conda install --yes -c bioconda das_tool=1.1.1
+    
+    chmod 777 /opt/bin/*

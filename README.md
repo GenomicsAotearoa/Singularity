@@ -15,5 +15,6 @@ This workflow is currently under development, as we migrate our software stack o
 1. MetaBAT v2.13-30 ([Kang et al., 2019](https://doi.org/10.7717/peerj.7359))
 1. MaxBin v2.2.7 ([Wu et al., 2014](https://doi.org/10.1093/bioinformatics/btv638))
 1. CONCOCT v1.1.0 ([Alneberg et al., 2014](https://doi.org/10.1038/nmeth.3103))
+1. DAS_Tool v1.1.1 ([Sieber et al., 2018](https://doi.org/10.1038/s41564-018-0171-1))
 1. CheckM v1.0.18 (including 2015/01/16 database) ([Parks et al., 2015](http://www.genome.org/cgi/doi/10.1101/gr.186072.114))
 1. dRep v2.3.2 ([Olm et al., 2017](https://doi.org/10.1038/ismej.2017.126))
