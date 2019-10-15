@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: continuumio/miniconda3:4.4.10
+
+%help
+    Containerisation of VAMB v2.0.1, installed via conda v4.4.10
+    David Waite - 2019/10/15
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%environment
+    PATH=/opt/conda/bin:$PATH
+    unset CONDA_DEFAULT_ENV
+    export ANACONDA_HOME=/opt/conda
+
+%post
+    export PATH=/opt/conda/bin:$PATH
+    conda config --add channels bioconda
+    conda install -c bioconda vamb
