@@ -2,79 +2,79 @@ Bootstrap: docker
 From: ubuntu:18.04
 
 %help
-	Containerisation of GTDB-TK v0.3.2, including the r89 reference database
-	David Waite - 2019/10/17
-	
-	Dependencies were downloaded and compiled (if necessary) on Ubuntu 18.04.2 LTS
-	Pplacer
-		wget https://github.com/matsen/pplacer/releases/download/v1.1.alpha19/pplacer-linux-v1.1.alpha19.zip
-		unzip pplacer-linux-v1.1.alpha19.zip
+    Containerisation of GTDB-TK v0.3.2, including the r89 reference database
+    David Waite - 2019/10/17
 
-	HMMer
-		wget http://eddylab.org/software/hmmer/hmmer.tar.gz
-		tar -xzf hmmer.tar.gz
-		cd hmmer-3.2.1/
-		./configure
-		make
+    Dependencies were downloaded and compiled (if necessary) on Ubuntu 18.04.2 LTS
+    Pplacer
+        wget https://github.com/matsen/pplacer/releases/download/v1.1.alpha19/pplacer-linux-v1.1.alpha19.zip
+        unzip pplacer-linux-v1.1.alpha19.zip
 
-	Prodigal
-		git clone https://github.com/hyattpd/Prodigal.git
-		cd Prodigal/
-		make
+    HMMer
+        wget http://eddylab.org/software/hmmer/hmmer.tar.gz
+        tar -xzf hmmer.tar.gz
+        cd hmmer-3.2.1/
+        ./configure
+        make
 
-	FastANI - Use the precompiled version to avoid having install GSL/Boost in the container
-		wget https://github.com/ParBLiSS/FastANI/releases/download/v1.2/fastANI-Linux64-v1.2.zip
-		unzip fastANI-Linux64-v1.2.zip
+    Prodigal
+        git clone https://github.com/hyattpd/Prodigal.git
+        cd Prodigal/
+        make
 
-	FastTree
-		wget http://www.microbesonline.org/fasttree/FastTreeDbl
-		
-	GTDB r89 database
-		wget https://data.ace.uq.edu.au/public/gtdb/data/releases/release89/89.0/gtdbtk_r89_data.tar.gz
+    FastANI - Use the precompiled version to avoid having install GSL/Boost in the container
+        wget https://github.com/ParBLiSS/FastANI/releases/download/v1.2/fastANI-Linux64-v1.2.zip
+        unzip fastANI-Linux64-v1.2.zip
+
+    FastTree
+        wget http://www.microbesonline.org/fasttree/FastTreeDbl
+
+    GTDB r89 database
+        wget https://data.ace.uq.edu.au/public/gtdb/data/releases/release89/89.0/gtdbtk_r89_data.tar.gz
 
 %labels
     Maintainer David Waite
     Version v0.1
 
 %files
-	# pplacer
-	pplacer-Linux-v1.1.alpha19/pplacer /opt/bin/pplacer
-	pplacer-Linux-v1.1.alpha19/guppy /opt/bin/guppy
-	pplacer-Linux-v1.1.alpha19/rppr /opt/bin/rppr
-	
-	# hmmer
-	hmmer-3.2.1/src/hmmsearch /opt/bin/hmmsearch
-	hmmer-3.2.1/src/hmmalign /opt/bin/hmmalign
-	hmmer-3.2.1/src/hmmfetch /opt/bin/hmmfetch
-	hmmer-3.2.1/src/hmmpress /opt/bin/hmmpress
-	
-	# Prodigal
-	Prodigal/prodigal /opt/bin/prodigal
+    # pplacer
+    pplacer-Linux-v1.1.alpha19/pplacer /opt/bin/pplacer
+    pplacer-Linux-v1.1.alpha19/guppy /opt/bin/guppy
+    pplacer-Linux-v1.1.alpha19/rppr /opt/bin/rppr
 
-	# FastTree
-	FastTreeDbl /opt/bin/fasttree
-	
-	# FastANI
-	fastANI /opt/bin/fastANI
+    # hmmer
+    hmmer-3.2.1/src/hmmsearch /opt/bin/hmmsearch
+    hmmer-3.2.1/src/hmmalign /opt/bin/hmmalign
+    hmmer-3.2.1/src/hmmfetch /opt/bin/hmmfetch
+    hmmer-3.2.1/src/hmmpress /opt/bin/hmmpress
 
-	# GTDB r89 database
-	gtdbtk_r89_data.tar.gz /opt/gtdbtk_r89_data.tar.gz
-	
+    # Prodigal
+    Prodigal/prodigal /opt/bin/prodigal
+
+    # FastTree
+    FastTreeDbl /opt/bin/fasttree
+
+    # FastANI
+    fastANI /opt/bin/fastANI
+
+    # GTDB r89 database
+    gtdbtk_r89_data.tar.gz /opt/gtdbtk_r89_data.tar.gz
+
 %environment
     PATH=/opt/bin:$PATH
     export GTDBTK_DATA_PATH=/opt/release89
 
 %post
-	apt-get -y update
-	apt-get -y install tar python python-pip zlib1g-dev libbz2-dev liblzma-dev
+    apt-get -y update
+    apt-get -y install tar python python-pip zlib1g-dev libbz2-dev liblzma-dev
 
-	# Install GTDB-TK
-	pip install numpy scipy gtdbtk
+    # Install GTDB-TK
+    pip install numpy scipy gtdbtk
 
-	# Set flags for executable dependecies
-	chmod 777 /opt/bin/*
+    # Set flags for executable dependecies
+    chmod 777 /opt/bin/*
 
-	# Unpackage and set the database directory
-	cd /opt/
-	tar -xzf gtdbtk_r89_data.tar.gz
-	rm gtdbtk_r89_data.tar.gz
+    # Unpackage and set the database directory
+    cd /opt/
+    tar -xzf gtdbtk_r89_data.tar.gz
+    rm gtdbtk_r89_data.tar.gz
