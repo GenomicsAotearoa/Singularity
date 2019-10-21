@@ -20,3 +20,4 @@ This workflow is currently under development, as we migrate our software stack o
 1. CheckM v1.0.18 (including 2015/01/16 database) ([Parks et al., 2015](http://www.genome.org/cgi/doi/10.1101/gr.186072.114))
 1. dRep v2.3.2 ([Olm et al., 2017](https://doi.org/10.1038/ismej.2017.126))
 1. GTDB-TK v0.3.2 ([Parks et al., 2018](https://doi.org/10.1038/nbt.4229))
+1. MinPath v1.4 ([Ye & Doak, 2009](https://doi.org/10.1371/journal.pcbi.1000465))

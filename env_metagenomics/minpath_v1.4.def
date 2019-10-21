@@ -1,0 +1,29 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%help
+    Containerisation of inPath v1.4
+    David Waite - 2019/10/21
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%files
+    # Downloaded archive
+    minpath1.4.tar.gz /opt/minpath1.4.tar.gz
+
+%environment
+    PATH=/opt/MinPath:$PATH
+    export MinPath="/opt/MinPath"
+
+%post
+    apt-get -y update
+    apt-get -y install tar python
+
+    # Unpackage the software
+    cd /opt/
+    tar -xzf minpath1.4.tar.gz
+    rm minpath1.4.tar.gz
+
+    chmod 777 /opt/MinPath/MinPath1.4.py
