@@ -1,0 +1,30 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%help
+    Containerisation of FMLRC and ropebwt2 for error correction of ONT sequences
+    David Waite - 2019/12/18
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%environment
+    PATH=/opt/fmlrc:$PATH
+    PATH=/opt/ropebwt2:$PATH
+
+%post
+    apt-get -y update
+    apt-get -y install build-essential git zlib1g-dev
+    
+    # Sort out FMLRC
+    cd /opt/
+    git clone https://github.com/holtjma/fmlrc.git
+	cd fmlrc/
+	make
+	
+	# Sort out ropebwt2
+	cd /opt/
+	git clone https://github.com/lh3/ropebwt2.git
+	cd ropebwt2/
+	make
