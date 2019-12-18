@@ -21,3 +21,15 @@ This workflow is currently under development, as we migrate our software stack o
 1. dRep v2.3.2 ([Olm et al., 2017](https://doi.org/10.1038/ismej.2017.126))
 1. GTDB-TK v0.3.2 ([Parks et al., 2018](https://doi.org/10.1038/nbt.4229))
 1. MinPath v1.4 ([Ye & Doak, 2009](https://doi.org/10.1371/journal.pcbi.1000465))
+
+---
+
+## Handy tool collections
+
+*Maintained by David Waite*
+
+This section is simply small images containing useful bundles of software for preprocessing or small workflows.
+
+1. ONT_Correction
+   - [FMLRC](https://github.com/holtjma/fmlrc)
+   - [ropebwt2](https://github.com/lh3/ropebwt2)
