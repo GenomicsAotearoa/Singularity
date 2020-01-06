@@ -1,0 +1,30 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%help
+    Containerisation of Miniasm and minimap2 for assembly of ONT sequences
+    David Waite - 2020/01/06
+
+%labels
+    Maintainer David Waite
+    Version v0.1
+
+%environment
+    PATH=/opt/miniasm:$PATH
+    PATH=/opt/minimap2:$PATH
+
+%post
+    apt-get -y update
+    apt-get -y install build-essential git zlib1g-dev
+
+    # Sort out minimap2
+    cd /opt/
+    git clone https://github.com/lh3/minimap2 
+    cd minimap2/
+    make
+
+    # Sort out Miniasm
+    cd /opt/
+    git clone https://github.com/lh3/miniasm
+    cd miniasm/
+    make
