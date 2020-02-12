@@ -20,4 +20,4 @@ From: ubuntu:18.04
     cd /opt/
     wget https://github.com/chanzuckerberg/shasta/releases/download/0.1.0/shasta-Linux-0.1.0
     mv shasta-Linux-0.1.0 shasta
-    chmod +x shasta
+    chmod 777 shasta
