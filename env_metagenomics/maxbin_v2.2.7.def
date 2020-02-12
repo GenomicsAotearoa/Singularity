@@ -20,8 +20,7 @@ From: ubuntu:18.04
     echo | cpan
 
     cd /opt/
-    wget -O MaxBin-2.2.7.tar.gz \
-         https://sourceforge.net/projects/maxbin/files/MaxBin-2.2.7.tar.gz/download
+    wget -O MaxBin-2.2.7.tar.gz https://sourceforge.net/projects/maxbin/files/MaxBin-2.2.7.tar.gz/download
     tar -xzf MaxBin-2.2.7.tar.gz
 
     # Install and compile dependencies
