@@ -20,11 +20,11 @@ From: ubuntu:18.04
     # Sort out FMLRC
     cd /opt/
     git clone https://github.com/holtjma/fmlrc.git
-	cd fmlrc/
-	make
-	
-	# Sort out ropebwt2
-	cd /opt/
-	git clone https://github.com/lh3/ropebwt2.git
-	cd ropebwt2/
-	make
+    cd fmlrc/
+    make
+
+    # Sort out ropebwt2
+    cd /opt/
+    git clone https://github.com/lh3/ropebwt2.git
+    cd ropebwt2/
+    make
