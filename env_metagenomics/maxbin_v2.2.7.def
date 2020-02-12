@@ -36,7 +36,7 @@ From: ubuntu:18.04
     echo "[HMMER3] /opt/MaxBin-2.2.7/auxiliary/hmmer-3.1b1/src" >> /opt/MaxBin-2.2.7/setting
     echo "[IDBA_UD] /opt/MaxBin-2.2.7/auxiliary/idba-1.1.1/bin" >> /opt/MaxBin-2.2.7/setting
 
-    chmod +rx /opt/MaxBin-2.2.7/auxiliary/FragGeneScan1.30/
+    chmod 777 /opt/MaxBin-2.2.7/auxiliary/FragGeneScan1.30/
 
     # Tidy up
     rm /opt/MaxBin-2.2.7.tar.gz
